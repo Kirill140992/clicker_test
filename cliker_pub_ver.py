@@ -4,10 +4,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 import time
+import tempfile
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--user-data-dir=/home/kirill/scrpts_test/tmp")
+profile_dir = tempfile.mkdtemp()
+chrome_options.add_argument(f"--user-data-dir={profile_dir}")
 
 driver = webdriver.Chrome(options=chrome_options)
 
@@ -66,5 +68,7 @@ actions.send_keys(Keys.ARROW_DOWN * 10)
 actions.perform()
 
 time.sleep(20)
+
+driver.quit()
 
 
